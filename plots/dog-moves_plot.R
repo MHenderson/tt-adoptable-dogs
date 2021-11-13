@@ -24,9 +24,6 @@ dogs_imported <- dog_moves_ %>%
   rename(value = imported) %>%
   ggplot(aes(state = location, fill = value))+
   geom_statebins() +
-  scale_fill_viridis(
-    option = "magma", direction = -1
-  ) +
   theme_statebins() +
   coord_equal() +
   labs(
@@ -42,9 +39,6 @@ dogs_exported <- dog_moves_ %>%
   rename(value = exported) %>%
   ggplot(aes(state = location, fill = value))+
   geom_statebins() +
-  scale_fill_viridis(
-    option = "magma", direction = -1
-  ) +
   theme_statebins() +
   coord_equal() +
   labs(
@@ -64,8 +58,8 @@ dogs_imported + dogs_exported +
     subtitle = "Data collected from the PetFinder API for all adoptable dogs\nin each state on September 20, 2019.",
     caption = "Data: Collected from the PetFinder API by Amber Thomas | Graphic: Matthew Henderson",
     theme = theme(
-      plot.title = element_text(size = 34, family = f1, hjust = 0, face = "bold", margin = margin(15, 0, 0, 0)),
-      plot.subtitle = element_text(size = 14, family = f2, hjust = 0, margin = margin(15, 0, 0, 0)),
+      plot.title = element_text(size = 34, family = f1, hjust = 0.5, face = "bold", margin = margin(15, 0, 0, 0)),
+      plot.subtitle = element_text(size = 14, family = f2, hjust = 0.5, margin = margin(15, 0, 0, 0)),
       plot.caption = element_text(size = 10, family = f2, hjust = 0.5, margin = margin(20, 0, 0, 0))
     )
   ) &
