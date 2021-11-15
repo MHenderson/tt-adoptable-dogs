@@ -6,10 +6,14 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+## Moves
+
+![](plots/dog-moves.png)
+
 ## Most popular names
 
 ![](plots/most-popular-names.png)
 
-## Moves
+## Most popular breeds
 
-![](plots/dog-moves.png)
+![](plots/most-popular-breeds.png)
