@@ -1,7 +1,9 @@
 library(dplyr)
 library(ggplot2)
 library(here)
+library(ragg)
 library(readr)
+library(syllable)
 
 f1 <- "Roboto Condensed"
 
@@ -15,14 +17,14 @@ top_fifty_names <- dog_descriptions %>%
   count() %>%
   arrange(desc(n)) %>%
   head(100) %>%
-  ungroup()
-
-top_fifty_names <- top_fifty_names %>%
+  ungroup() %>%
   mutate(
-    syllables = as.numeric(count_vector(top_fifty_names$name))
+    syllables = as.numeric(count_vector(name))
   )
 
-top_fifty_names %>%
+agg_png(here("plots", "most-popular-names.png"), res = 320, height = 14, width = 7.43, units = "in")
+
+p <- top_fifty_names %>%
   ggplot(aes(reorder(name, n), n)) +
   geom_text(aes(label = name, colour = as.factor(syllables)), family = f1) +
   coord_flip() +
@@ -34,8 +36,11 @@ top_fifty_names %>%
   theme_minimal() +
   theme(
     axis.text.y = element_blank(),
-    panel.grid.major.y = element_blank()
+    panel.grid.major.y = element_blank(),
+    legend.position = "none"
   ) +
   annotate(geom = "text", x = 50, y = 130, label = "One Hundred\nMost Popular\nDog Names", size = 15, hjust = 0, family = f1)
 
-ggsave(filename = here("plots", "most-popular-names.png"), height = 4000, width = 2000, units = "px", bg = "white")
+print(p)
+
+dev.off()
