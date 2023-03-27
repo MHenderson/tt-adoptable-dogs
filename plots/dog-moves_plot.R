@@ -56,7 +56,7 @@ dogs_imported + dogs_exported +
   plot_annotation(
     title = "Dog Moves",
     subtitle = "Data collected from the PetFinder API for all adoptable dogs\nin each state on September 20, 2019.",
-    caption = "Data: Collected from the PetFinder API by Amber Thomas | Graphic: Matthew Henderson",
+    caption = "Data: Collected from the PetFinder API by Amber Thomas | Graphic: Matthew Henderson | Code: https://github.com/MHenderson/adoptable-dogs",
     theme = theme(
       plot.title = element_text(size = 34, family = f1, hjust = 0.5, face = "bold", margin = margin(15, 0, 0, 0)),
       plot.subtitle = element_text(size = 14, family = f2, hjust = 0.5, margin = margin(15, 0, 0, 0)),
