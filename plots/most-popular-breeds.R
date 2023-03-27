@@ -1,8 +1,10 @@
 library(dplyr)
 library(ggplot2)
 library(here)
+library(historydata)
 library(ragg)
 library(readr)
+library(usa) # remotes::install_github("kiernann/usa")
 library(viridis)
 
 dog_descriptions <- read_csv(here("data-raw", "dog_descriptions.csv"), show_col_types = FALSE)
