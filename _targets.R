@@ -9,7 +9,7 @@ library(targets)
 
 # Set target options:
 tar_option_set(
-  packages = c("readr", "tibble") # packages that your targets need to run
+  packages = c("dplyr", "ggplot2", "patchwork", "readr", "statebins", "tibble", "tidyr", "viridis") # packages that your targets need to run
   # format = "qs", # Optionally set the default storage format. qs is fast.
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -22,7 +22,7 @@ tar_option_set(
   # Alternatively, if you want workers to run on a high-performance computing
   # cluster, select a controller from the {crew.cluster} package. The following
   # example is a controller for Sun Grid Engine (SGE).
-  # 
+  #
   #   controller = crew.cluster::crew_controller_sge(
   #     workers = 50,
   #     # Many clusters install R as an environment module, and you can load it
@@ -60,5 +60,14 @@ list(
   tar_target(
     name = dog_descriptions,
     command = read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv')
+  ),
+  tar_target(
+    name = dog_moves_plot,
+    command = plot_dog_moves(dog_moves)
+  ),
+  tar_target(
+    name = save_dog_moves_plot,
+    command = ggsave(plot = dog_moves_plot, filename = "img/dog-moves-plot.png", bg = "white", width = 4000, height = 2000, units = "px"),
+    format = "file"
   )
 )
