@@ -1,5 +1,8 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|b0e51b0fee9bef0b
-dog_descriptions|stem|cdb2bcfb5e287ee8|af347c01f0724323|ef46db3751d8e999|381973030||t19682.676213764s|ecff0aff819448dc|15562078|rds|local|vector|||8.374|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
-dog_moves|stem|20fe8a7bbada4726|324cd81669f87e8e|ef46db3751d8e999|-934318685||t19682.6762179307s|1d144507fa74e71c|1454|rds|local|vector|||0.334||
-dog_travel|stem|aaeaa15d17952866|1c3d98ba74e39372|ef46db3751d8e999|-1555566129||t19682.6762608474s|5a8c60e46b3fce1f|1957199|rds|local|vector|||3.293||
+.Random.seed|object|93081c6e3d03a7a2|||||||||||||||
+dog_descriptions|stem|cdb2bcfb5e287ee8|af347c01f0724323|ef46db3751d8e999|381973030||t19682.6907406137s|ecff0aff819448dc|15562078|rds|local|vector|||16.152|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+dog_moves|stem|20fe8a7bbada4726|324cd81669f87e8e|ef46db3751d8e999|-934318685||t19682.6907450581s|1d144507fa74e71c|1454|rds|local|vector|||0.352||
+dog_moves_plot|stem|c2150c34278d5398|bedaf6644d57398f|bc65e6fc384df4cd|-905625653||t19682.7045414477s|12230bc8867abcbd|144811|rds|local|vector|||0.124||
+dog_travel|stem|aaeaa15d17952866|1c3d98ba74e39372|ef46db3751d8e999|-1555566129||t19682.6908082989s|5a8c60e46b3fce1f|1957199|rds|local|vector|||5.052||
+plot_dog_moves|function|baecd84b924d6270|||||||||||||||
+save_dog_moves_plot|stem|59db3eac4ef3a99f|81ad54f8a389eaee|3441bc306939be2f|363300638|img/dog-moves-plot.png|t19682.7056432996s|e04f1247951b643c|305967|file|local|vector|||0.907||

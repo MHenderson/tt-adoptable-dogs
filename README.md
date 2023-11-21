@@ -8,12 +8,4 @@
 
 ## Moves
 
-![](plots/dog-moves.png)
-
-## Most popular names
-
-![](plots/most-popular-names.png)
-
-## Most popular breeds
-
-![](plots/most-popular-breeds.png)
+![](img/dog-moves-plot.png)
