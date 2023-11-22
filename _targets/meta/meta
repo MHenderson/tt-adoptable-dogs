@@ -1,8 +1,14 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|93081c6e3d03a7a2|||||||||||||||
-dog_descriptions|stem|cdb2bcfb5e287ee8|af347c01f0724323|ef46db3751d8e999|381973030||t19682.6907406137s|ecff0aff819448dc|15562078|rds|local|vector|||16.152|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
-dog_moves|stem|20fe8a7bbada4726|324cd81669f87e8e|ef46db3751d8e999|-934318685||t19682.6907450581s|1d144507fa74e71c|1454|rds|local|vector|||0.352||
-dog_moves_plot|stem|c2150c34278d5398|bedaf6644d57398f|bc65e6fc384df4cd|-905625653||t19682.7045414477s|12230bc8867abcbd|144811|rds|local|vector|||0.124||
-dog_travel|stem|aaeaa15d17952866|1c3d98ba74e39372|ef46db3751d8e999|-1555566129||t19682.6908082989s|5a8c60e46b3fce1f|1957199|rds|local|vector|||5.052||
-plot_dog_moves|function|baecd84b924d6270|||||||||||||||
-save_dog_moves_plot|stem|59db3eac4ef3a99f|81ad54f8a389eaee|3441bc306939be2f|363300638|img/dog-moves-plot.png|t19682.7056432996s|e04f1247951b643c|305967|file|local|vector|||0.907||
+.Random.seed|object|3e1db3dbdf310d85|||||||||||||||
+dog_descriptions|stem|cdb2bcfb5e287ee8|af347c01f0724323|ef46db3751d8e999|381973030||t19683.432481853s|ecff0aff819448dc|15562078|rds|local|vector|||7.595|1m22mOne or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+dog_moves|stem|20fe8a7bbada4726|324cd81669f87e8e|ef46db3751d8e999|-934318685||t19683.4324865289s|1d144507fa74e71c|1454|rds|local|vector|||0.367||
+dog_moves_plot|stem|13a35b8b7a99dbc9|f14d311545c06dbb|feaac22ef3f04eea|-905625653||t19683.4406535194s|bcbe46726e17a803|134104|rds|local|vector|||0.051||
+dog_moves_pp|function|d1112515f0c6ba7a|||||||||||||||
+dog_travel|stem|aaeaa15d17952866|1c3d98ba74e39372|ef46db3751d8e999|-1555566129||t19683.4325092604s|5a8c60e46b3fce1f|1957199|rds|local|vector|||1.465||
+dogs_exported_plot|stem|ede77cc537b02f7b|975649bffe58aa46|4074116391246098|-1152777072||t19683.4406519916s|65fb6a3bac65724c|51182|rds|local|vector|||0.015||
+dogs_imported_plot|stem|500c02e264770d1a|55d6a7d75ea23d12|37f1ddb85b6b83e3|1644763856||t19683.4406513435s|99da88c828c2e52d|51163|rds|local|vector|||0.023||
+plot_dog_moves|function|16cbe03805a66752|||||||||||||||
+plot_dogs_exported|function|1bba293d98381b90|||||||||||||||
+plot_dogs_imported|function|ce6f19f00998e660|||||||||||||||
+pp_dog_moves|stem|7ebab016a616b474|e9d455beb774ccad|d7aba803ef659b8f|522406756||t19683.43497389s|b23a7fe33b4b2a93|1334|rds|local|vector|||0.014||
+save_dog_moves_plot|stem|59db3eac4ef3a99f|81ad54f8a389eaee|89552034ef8f2d89|363300638|img/dog-moves-plot.png|t19683.4406646305s|e04f1247951b643c|305967|file|local|vector|||0.955||

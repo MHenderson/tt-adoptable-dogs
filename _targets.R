@@ -62,8 +62,20 @@ list(
     command = read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv')
   ),
   tar_target(
+    name = pp_dog_moves,
+    command = dog_moves_pp(dog_moves)
+  ),
+  tar_target(
+    name = dogs_imported_plot,
+    command = plot_dogs_imported(pp_dog_moves)
+  ),
+  tar_target(
+    name = dogs_exported_plot,
+    command = plot_dogs_exported(pp_dog_moves)
+  ),
+  tar_target(
     name = dog_moves_plot,
-    command = plot_dog_moves(dog_moves)
+    command = plot_dog_moves(dogs_imported_plot, dogs_exported_plot)
   ),
   tar_target(
     name = save_dog_moves_plot,

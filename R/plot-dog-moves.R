@@ -1,47 +1,9 @@
-plot_dog_moves <- function(X) {
+plot_dog_moves <- function(X, Y) {
 
   f1 <- "Roboto Condensed"
   f2 <- "Roboto Condensed"
 
-  dog_moves_ <- X |>
-    filter(inUS) |>
-    filter(location!="Washington DC") |>
-    replace_na(list(exported = 0, imported = 0)) |>
-    mutate(
-      x = (exported - imported)/total
-    )
-
-  dogs_imported <- dog_moves_ |>
-    rename(value = imported) |>
-    ggplot(aes(state = location, fill = value)) +
-      geom_statebins() +
-      theme_statebins() +
-      coord_equal() +
-      labs(
-        title = "imported dogs",
-        subtitle = "The number of adoptable dogs available in this state that originated\nin a different location."
-      ) +
-      theme(
-        plot.title = element_text(size = 20, family = f1, hjust = 0),
-        plot.subtitle = element_text(size = 12, family = f2, hjust = 0)
-      )
-
-  dogs_exported <- dog_moves_ |>
-    rename(value = exported) |>
-    ggplot(aes(state = location, fill = value)) +
-      geom_statebins() +
-      theme_statebins() +
-      coord_equal() +
-      labs(
-        title = "exported dogs",
-        subtitle = "The number of adoptable dogs available in the US that originated\nin this location but were available for adoption in another location."
-      ) +
-      theme(
-        plot.title = element_text(size = 20, family = f1, hjust = 0),
-        plot.subtitle = element_text(size = 12, family = f2, hjust = 0)
-      )
-
-  dogs_imported + dogs_exported +
+  X + Y +
     plot_layout(guides = "collect") &
     scale_fill_viridis(option = "magma", direction = -1, limits = range(c(0, 1000))) &
     plot_annotation(
