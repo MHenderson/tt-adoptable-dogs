@@ -9,3 +9,7 @@
 ## Moves
 
 ![](img/dog-moves-plot.png)
+
+## Most Popular Names
+
+![](img/top-names-plot.png)
