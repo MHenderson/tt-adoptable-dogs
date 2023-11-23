@@ -66,6 +66,10 @@ list(
     command = dog_moves_pp(dog_moves)
   ),
   tar_target(
+    name = top_names_df,
+    command = top_names(dog_descriptions)
+  ),
+  tar_target(
     name = dogs_imported_plot,
     command = plot_dogs_imported(pp_dog_moves)
   ),
@@ -78,8 +82,17 @@ list(
     command = plot_dog_moves(dogs_imported_plot, dogs_exported_plot)
   ),
   tar_target(
+    name = top_names_plot,
+    command = plot_top_names(top_names_df)
+  ),
+  tar_target(
     name = save_dog_moves_plot,
     command = ggsave(plot = dog_moves_plot, filename = "img/dog-moves-plot.png", bg = "white", width = 4000, height = 2000, units = "px"),
+    format = "file"
+  ),
+  tar_target(
+    name = save_top_names_plot,
+    command = ggsave(plot = top_names_plot, filename = "img/top-names-plot.png", bg = "white", width = 4000, height = 5000, units = "px"),
     format = "file"
   )
 )
