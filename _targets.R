@@ -9,7 +9,7 @@ library(targets)
 
 # Set target options:
 tar_option_set(
-  packages = c("dplyr", "ggplot2", "patchwork", "readr", "statebins", "tibble", "tidyr", "viridis") # packages that your targets need to run
+  packages = c("dplyr", "ggplot2", "historydata", "patchwork", "readr", "statebins", "tibble", "tidyr", "usa", "viridis") # packages that your targets need to run
   # format = "qs", # Optionally set the default storage format. qs is fast.
   #
   # For distributed computing in tar_make(), supply a {crew} controller
@@ -62,6 +62,26 @@ list(
     command = read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv')
   ),
   tar_target(
+    name = state_pops,
+    command = us_state_populations |>
+      filter(year == 2010) |>
+      mutate(
+        contact_state = state_convert(state, to = "abb")
+      ) |>
+      select(contact_state, population)
+  ),
+  tar_target(
+    name = breed_counts_by_state,
+    command = dog_descriptions |>
+      filter(contact_state %in% state.abb) |>
+      group_by(contact_state, breed_primary) |>
+      count(breed_primary) |>
+      left_join(state_pops) |>
+      mutate(
+        n_frac = 1000000*n/population
+      )
+  ),
+  tar_target(
     name = pp_dog_moves,
     command = dog_moves_pp(dog_moves)
   ),
@@ -86,6 +106,10 @@ list(
     command = plot_top_names(top_names_df)
   ),
   tar_target(
+    name = most_popular_breeds_plot,
+    command = plot_most_popular_breeds(breed_counts_by_state)
+  ),
+  tar_target(
     name = save_dog_moves_plot,
     command = ggsave(plot = dog_moves_plot, filename = "img/dog-moves-plot.png", bg = "white", width = 4000, height = 2000, units = "px"),
     format = "file"
@@ -93,6 +117,11 @@ list(
   tar_target(
     name = save_top_names_plot,
     command = ggsave(plot = top_names_plot, filename = "img/top-names-plot.png", bg = "white", width = 4000, height = 5000, units = "px"),
+    format = "file"
+  ),
+  tar_target(
+    name = save_most_popular_breeds_plot,
+    command = ggsave(plot = most_popular_breeds_plot, filename = "img/most-popular-breeds-plot.png", bg = "white", width = 6000, height = 3000, units = "px"),
     format = "file"
   )
 )
