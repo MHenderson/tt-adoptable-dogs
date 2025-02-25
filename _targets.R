@@ -128,7 +128,7 @@ list(
 	labs(
 		 y = "Number of dogs",
 		 x = "",
-	     title = NULL,
+	     title = "Most Popular Dog Names",
 	  subtitle = NULL,
 	   caption = "Data: Collected from the PetFinder API on September 20, 2019 by Amber Thomas\nGraphic: Matthew Henderson\nCode: https://github.com/MHenderson/adoptable-dogs"
 	) +
@@ -139,8 +139,7 @@ list(
 	  panel.grid.major.y = element_blank(),
 	     legend.position = "none",
 		plot.caption = element_text(size = 10, family = "Roboto Condensed", hjust = 0, margin = margin(20, 0, 0, 0))
-	) +
-	annotate(geom = "text", x = 60, y = 125, label = "One Hundred\nMost Popular\nDog Names", size = 18, hjust = 0, family = "Roboto Condensed", fontface = "bold")
+	)
   ),
   tar_target(
        name = save_dog_moves_plot,
@@ -161,8 +160,8 @@ list(
           plot = top_names_plot,
       filename = "plot/top-names-plot.png",
             bg = "white",
-         width = 4000,
-        height = 5000,
+         width = 3000,
+        height = 4000,
          units = "px"
     )
   )
