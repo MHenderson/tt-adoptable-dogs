@@ -1,0 +1,22 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+dog_descriptions|stem|1442f9d6214e5784|f634d7da5c87fa2b|2c530c1562a7fbd1|-1442355178||t20144.3435981378s|s15562078b|15562078|rds|local|vector|||24.406|One or more parsing issues, call problems on your data frame for details,e.g.  dat  vroom...  problemsdat|
+dog_moves|stem|0436eecf6d28a45f|d788da6a9feb8fa6|2c530c1562a7fbd1|-308292476||t20144.343605962s|s1454b|1454|rds|local|vector|||0.638||
+state_pops|stem|c32878879c8b483a|34168ed447a8ec46|2c530c1562a7fbd1|1261131023||t20144.3436065175s|s531b|531|rds|local|vector|||0.031||
+dog_travel|stem|ec0c2d2df3080756|a10642afb67fc572|2c530c1562a7fbd1|5831388||t20144.3436755926s|s1957199b|1957199|rds|local|vector|||5.363||
+top_names_df|stem|fc9ee5ef3166434a|d62bd8afce9b3a7d|8ae09207cba224a8|-1170882841||t20144.3436838798s|s475b|475|rds|local|vector|||0.707||
+pp_dog_moves|stem|0332400bce558054|fe98b479446086ac|284c6f3058c6b3ab|-2078935949||t20144.343684065s|s1334b|1334|rds|local|vector|||0.008||
+breed_counts_by_state|stem|0eed28b61da1f94d|f926e64f2149e203|3c335fc49d057f2e|1575682499||t20144.3436867965s|s40416b|40416|rds|local|vector|||0.209||
+top_names_plot|stem|5295876859d6c663|a5c7b75e4b151124|9d00d4615aaf621e|1775866575||t20144.3436892965s|s172956b|172956|rds|local|vector|||0.081||
+dogs_imported_plot|stem|84c1949a53e0a6e3|cb10806e5cc05109|873964f0f25b3384|1591210814||t20144.3436902688s|s97358b|97358|rds|local|vector|||0.017||
+dogs_exported_plot|stem|1d91a828649db3d5|472b2eeb0470e482|48f768eff68cfcb1|-1949252288||t20144.3436912873s|s97384b|97384|rds|local|vector|||0.016||
+most_popular_breeds_plot|stem||1ccdd8af828afcce|9578a51a24db99b8|1138153153||t20144.3436915007s||0|rds|local|vector|||0.008||could not find function plot_most_popular_breeds
+save_top_names_plot|stem|7a429385d57283af|1af50ff2ab7b46ff|24ae03e27adb89c1|-1430646335|plot/top-names-plot.png|t20144.3443499093s|s205244b|205244|file|local|vector|||1.519||
+dog_moves_plot|stem|2c47d5690e53d633|253188d316235237|b87142b3757bb39c|-1567504344||t20144.3443545853s|s265866b|265866|rds|local|vector|||0.065||
+save_dog_moves_plot|stem|316d251f22a072f9|505d969facbca40b|15181eb7396bd26c|-1566987013|plot/dog-moves-plot.png|t20144.3443751877s|s305735b|305735|file|local|vector|||1.765||
+plot_dogs_imported|function|e747bf62efa12648
+dog_moves_pp|function|96f780526e83e563
+.Random.seed|object|25c8a8162442e535
+plot_dog_moves|function|973f28a380bbbd6e
+plot_top_names|function|7aa46a23c670ff10
+top_names|function|f92d1b5ff441de88
+plot_dogs_exported|function|0a063742b170c5f0
