@@ -1,68 +1,24 @@
-# Created by use_targets().
-# Follow the comments below to fill in this target script.
-# Then follow the manual to check and run the pipeline:
-#   https://books.ropensci.org/targets/walkthrough.html#inspect-the-pipeline
-
-# Load packages required to define the pipeline:
 library(targets)
-# library(tarchetypes) # Load other packages as needed.
 
-# Set target options:
 tar_option_set(
-  packages = c("dplyr", "ggplot2", "historydata", "patchwork", "readr", "statebins", "tibble", "tidyr", "usa", "viridis") # packages that your targets need to run
-  # format = "qs", # Optionally set the default storage format. qs is fast.
-  #
-  # For distributed computing in tar_make(), supply a {crew} controller
-  # as discussed at https://books.ropensci.org/targets/crew.html.
-  # Choose a controller that suits your needs. For example, the following
-  # sets a controller with 2 workers which will run as local R processes:
-  #
-  #   controller = crew::crew_controller_local(workers = 2)
-  #
-  # Alternatively, if you want workers to run on a high-performance computing
-  # cluster, select a controller from the {crew.cluster} package. The following
-  # example is a controller for Sun Grid Engine (SGE).
-  #
-  #   controller = crew.cluster::crew_controller_sge(
-  #     workers = 50,
-  #     # Many clusters install R as an environment module, and you can load it
-  #     # with the script_lines argument. To select a specific verison of R,
-  #     # you may need to include a version string, e.g. "module load R/4.3.0".
-  #     # Check with your system administrator if you are unsure.
-  #     script_lines = "module load R"
-  #   )
-  #
-  # Set other options as needed.
+  packages = c("dplyr", "ggplot2", "historydata", "patchwork", "readr", "statebins", "tibble", "tidyr", "usa", "viridis")
 )
 
-# tar_make_clustermq() is an older (pre-{crew}) way to do distributed computing
-# in {targets}, and its configuration for your machine is below.
-options(clustermq.scheduler = "multicore")
-
-# tar_make_future() is an older (pre-{crew}) way to do distributed computing
-# in {targets}, and its configuration for your machine is below.
-# Install packages {{future}}, {{future.callr}}, and {{future.batchtools}} to allow use_targets() to configure tar_make_future() options.
-
-# Run the R scripts in the R/ folder with your custom functions:
-tar_source()
-# source("other_functions.R") # Source other scripts as needed.
-
-# Replace the target list below with your own:
 list(
   tar_target(
-    name = dog_moves,
+       name = dog_moves,
     command = read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_moves.csv')
   ),
   tar_target(
-    name = dog_travel,
+       name = dog_travel,
     command = read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_travel.csv')
   ),
   tar_target(
-    name = dog_descriptions,
+       name = dog_descriptions,
     command = read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-12-17/dog_descriptions.csv')
   ),
   tar_target(
-    name = state_pops,
+       name = state_pops,
     command = us_state_populations |>
       filter(year == 2010) |>
       mutate(
@@ -71,7 +27,7 @@ list(
       select(contact_state, population)
   ),
   tar_target(
-    name = breed_counts_by_state,
+       name = breed_counts_by_state,
     command = dog_descriptions |>
       filter(contact_state %in% state.abb) |>
       group_by(contact_state, breed_primary) |>
@@ -82,46 +38,131 @@ list(
       )
   ),
   tar_target(
-    name = pp_dog_moves,
-    command = dog_moves_pp(dog_moves)
+       name = pp_dog_moves,
+    command = dog_moves |>
+      filter(inUS) |>
+      filter(location!="Washington DC") |>
+      replace_na(list(exported = 0, imported = 0)) |>
+      mutate(
+        x = (exported - imported)/total
+      )
   ),
   tar_target(
-    name = top_names_df,
-    command = top_names(dog_descriptions)
+       name = top_names_df,
+    command = dog_descriptions |>
+      mutate(
+        name = tolower(name)
+      ) |>
+      group_by(name) |>
+      count() |>
+      arrange(desc(n)) |>
+      head(50) |>
+      ungroup()
   ),
   tar_target(
-    name = dogs_imported_plot,
-    command = plot_dogs_imported(pp_dog_moves)
+       name = dogs_imported_plot,
+    command = pp_dog_moves |>
+      rename(value = imported) |>
+      ggplot(aes(state = location, fill = value)) +
+	geom_statebins() +
+	theme_statebins() +
+	coord_equal() +
+	labs(
+	     title = "imported dogs",
+	  subtitle = "The number of adoptable dogs available in this state that originated\nin a different location."
+	) +
+	theme(
+	     plot.title = element_text(size = 20, family = "Roboto Condensed", hjust = 0),
+	  plot.subtitle = element_text(size = 12, family = "Roboto Condensed", hjust = 0)
+	)
   ),
   tar_target(
-    name = dogs_exported_plot,
-    command = plot_dogs_exported(pp_dog_moves)
+       name = dogs_exported_plot,
+    command = pp_dog_moves |>
+      rename(value = exported) |>
+      ggplot(aes(state = location, fill = value)) +
+	geom_statebins() +
+	theme_statebins() +
+	coord_equal() +
+	labs(
+             title = "exported dogs",
+          subtitle = "The number of adoptable dogs available in the US that originated\nin this location but were available for adoption in another location."
+	) +
+	theme(
+             plot.title = element_text(size = 20, family = "Roboto Condensed", hjust = 0),
+          plot.subtitle = element_text(size = 12, family = "Roboto Condensed", hjust = 0)
+	)
   ),
   tar_target(
-    name = dog_moves_plot,
-    command = plot_dog_moves(dogs_imported_plot, dogs_exported_plot)
+       name = dog_moves_plot,
+    command = dogs_imported_plot + dogs_exported_plot +
+      plot_layout(guides = "collect") &
+      scale_fill_viridis(option = "magma", direction = -1, limits = range(c(0, 1000))) &
+      plot_annotation(
+           title = "Dog Moves",
+        subtitle = "Data collected from the PetFinder API for all adoptable dogs\nin each state on September 20, 2019.",
+         caption = "Data: Collected from the PetFinder API by Amber Thomas | Graphic: Matthew Henderson | Code: https://github.com/MHenderson/adoptable-dogs",
+           theme = theme(
+             plot.title = element_text(size = 34, family = "Roboto Condenses", hjust = 0.5, face = "bold", margin = margin(15, 0, 0, 0)),
+             plot.subtitle = element_text(size = 14, family = "Roboto Condensed", hjust = 0.5, margin = margin(15, 0, 0, 0)),
+             plot.caption = element_text(size = 10, family = "Roboto Condensed", hjust = 0.5, margin = margin(20, 0, 0, 0))
+	  )
+      ) &
+      theme(
+	  legend.position = "right",
+	     legend.title = element_blank(),
+	 legend.key.width = unit(1, "line"),
+	legend.key.height = unit(1.5, "line"),
+              legend.text = element_text(family = "Roboto Condensed"),
+	  plot.background = element_rect(fill = "#FFFDF4", color = NA)
+      )
   ),
   tar_target(
-    name = top_names_plot,
-    command = plot_top_names(top_names_df)
+       name = top_names_plot,
+    command = top_names_df |>
+      ggplot(aes(reorder(name, n), n)) +
+	geom_text(aes(label = name), family = "Roboto Condensed", size = 5, fontface = "bold", alpha = .9) +
+	coord_flip() +
+	ylim(50, 300) +
+	scale_color_brewer(type = "qual") +
+	labs(
+		 y = "Number of dogs",
+		 x = "",
+	     title = "Most Popular Dog Names",
+	  subtitle = NULL,
+	   caption = "Data: Collected from the PetFinder API on September 20, 2019 by Amber Thomas\nGraphic: Matthew Henderson\nCode: https://github.com/MHenderson/adoptable-dogs"
+	) +
+	theme_minimal() +
+	theme(
+		axis.title.x = element_text(hjust = 1, margin = margin(10, 0, 0, 0), family = "Roboto Condensed"),
+		 axis.text.y = element_blank(),
+	  panel.grid.major.y = element_blank(),
+	     legend.position = "none",
+		plot.caption = element_text(size = 10, family = "Roboto Condensed", hjust = 0, margin = margin(20, 0, 0, 0))
+	)
   ),
   tar_target(
-    name = most_popular_breeds_plot,
-    command = plot_most_popular_breeds(breed_counts_by_state)
+       name = save_dog_moves_plot,
+     format = "file",
+    command = ggsave(
+          plot = dog_moves_plot,
+      filename = "plot/dog-moves-plot.png",
+            bg = "white",
+         width = 4000,
+        height = 2000,
+         units = "px"
+    ) 
   ),
   tar_target(
-    name = save_dog_moves_plot,
-    command = ggsave(plot = dog_moves_plot, filename = "img/dog-moves-plot.png", bg = "white", width = 4000, height = 2000, units = "px"),
-    format = "file"
-  ),
-  tar_target(
-    name = save_top_names_plot,
-    command = ggsave(plot = top_names_plot, filename = "img/top-names-plot.png", bg = "white", width = 4000, height = 5000, units = "px"),
-    format = "file"
-  ),
-  tar_target(
-    name = save_most_popular_breeds_plot,
-    command = ggsave(plot = most_popular_breeds_plot, filename = "img/most-popular-breeds-plot.png", bg = "white", width = 6000, height = 3000, units = "px"),
-    format = "file"
+       name = save_top_names_plot,
+     format = "file",
+    command = ggsave(
+          plot = top_names_plot,
+      filename = "plot/top-names-plot.png",
+            bg = "white",
+         width = 3000,
+        height = 4000,
+         units = "px"
+    )
   )
 )

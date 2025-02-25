@@ -1,19 +1,10 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# adoptable-dogs
-
-<!-- badges: start -->
-<!-- badges: end -->
+# tt-adoptable-dogs
 
 ## Moves
 
-![](img/dog-moves-plot.png)
+![](plot/dog-moves-plot.png)
 
 ## Most Popular Names
 
-![](img/top-names-plot.png)
+![](plot/top-names-plot.png)
 
-## Most Popular Breeds by State
-
-![](img/most-popular-breeds-plot.png)
